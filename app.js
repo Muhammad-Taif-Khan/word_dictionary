@@ -1,32 +1,29 @@
 const form = document.querySelector('.search_form');
 const content = document.querySelector('.main_content');
 
-form.addEventListener('submit', handleSubmit);
+form.addEventListener('submit', getDefinitions);
 
-function handleSubmit(event) {
-    event.preventDefault();
+function getDefinitions(e) {
+    e.preventDefault();
     const input = document.querySelector(".input").value;
     const url = `https://googledictionaryapi.eu-gb.mybluemix.net/?define=${input}&lang=en`;
 
     //sendRequest to url
     fetch(url)
     .then(response => {
-        if(response.statusText === "Not Found"){
-            alert("Word "+response.statusText); 
-            
-        }
-        else{
-            return response.json();}
-        })
+        if(response.statusText === "Not Found") alert("Word "+response.statusText);   
+        else return response.json();
+    }
+        )
     .then(data => {
-        handleData(data)
+        renderData(data)
     }).catch(error => {
-       console.log(error);
+       alert(error);
     });
 
 }
 
-function handleData(data) {
+function renderData(data) {
     let allMeaning = data[0].meaning;
 
     content.innerHTML = "<h1 style='text-align: center;margin-bottom: 50px;'>[Definitions]</h1>";
