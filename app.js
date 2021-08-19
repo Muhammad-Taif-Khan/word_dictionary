@@ -12,8 +12,7 @@ function handleSubmit(event) {
     fetch(url)
     .then(response => {
         if(response.statusText === "Not Found"){
-            alert("Word "+response.statusText);
-            throw response.statusText;  
+            alert("Word "+response.statusText); 
             
         }
         else{
